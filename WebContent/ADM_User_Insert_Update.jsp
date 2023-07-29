@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -34,6 +35,9 @@
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js" type="text/javascript"></script>
 
 </head>
 <style>
@@ -190,15 +194,25 @@ padding:16px;
 </style>
 <body>
 <script>
-// Get the modal
-var modal = document.getElementById('id01');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+$(document).ready(function(){
+	console.log("Loaded.");
+	$.get('FetchClassID');
+	$("#flag").hide();
+	$("#rollNo").hide();
+	$("#classNo").hide();
+	$("#role").change(function(){
+		console.log("Field Hide");
+		$("#flag").hide();
+		$("#rollNo").hide();
+		$("#classNo").hide();
+		if($(this).val()=="student"){
+			console.log("Student");
+			$("#rollNo").show();
+			$("#classNo").show();
+			$("#flag").show();
+		}
+	});
+});
 </script>
     <div class="page-wrapper">
         <!-- MENU SIDEBAR-->
@@ -341,7 +355,6 @@ window.onclick = function(event) {
                         }
                         %>
                         </h2></center>
-                        <!-- Email input -->
   <div class="form-outline mb-4 mt-4">
     <input type="text" id="form1Example1" class="form-control" placeholder="Enter User Identifier" name="userId" required hidden/>
   </div>
@@ -373,12 +386,26 @@ window.onclick = function(event) {
   </div>
 
   <div class="form-outline mb-4">
-    <select class="form-control" name="role">
+    <select class="form-control" name="role" id="role">
     <option value="admin">Administrator</option>
     <option value="student">Student</option>
     <option value="teacher">Teacher</option>
     </select>
   </div>
+
+<div id="flag">
+  <div class="form-outline mb-4">
+    <input type="text" id="rollNo" class="form-control" placeholder="Enter Roll No" name="rollNo" required/>
+  </div>
+
+  <div class="form-outline mb-4">
+    <select class="form-control" name="classNo" id="classNo">
+    <c:forEach items="${classNoList}" var="data">
+    <option value="${data}">${data}</option>
+    </c:forEach>
+    </select>
+  </div>
+ </div>
   <!-- Submit button -->
   <button type="submit" class="btn btn-primary btn-block">
   <%

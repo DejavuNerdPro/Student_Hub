@@ -36,6 +36,9 @@
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
 
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js" type="text/javascript"></script>
+
 <style type="text/css">
 td{white-space: nowrap;}
 .my-custom-scrollbar {

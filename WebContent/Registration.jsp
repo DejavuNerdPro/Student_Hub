@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -36,9 +37,33 @@
     <link href="css/theme.css" rel="stylesheet" media="all">
     <link href="css/register.css" rel="stylesheet" media="all">
 
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js" type="text/javascript"></script>
+
 </head>
 </head>
 <body>
+<script>
+$(document).ready(function(){
+	console.log("Loaded.");
+	$.get('FetchClassID');
+	$("#flag").hide();
+	$("#rollNo").hide();
+	$("#classNo").hide();
+	$("#role").change(function(){
+		console.log("Field Hide");
+		$("#flag").hide();
+		$("#rollNo").hide();
+		$("#classNo").hide();
+		if($(this).val()=="student"){
+			console.log("Student");
+			$("#rollNo").show();
+			$("#classNo").show();
+			$("#flag").show();
+		}
+	});
+});
+</script>
 <div class="container mt-3">
   <form>
     <div class="row jumbotron box8">
@@ -577,6 +602,19 @@
           <option value="teacher">Teacher</option>
         </select>
       </div>
+      <div id="flag">
+  <div class="form-outline mb-4">
+    <input type="text" id="rollNo" class="form-control" placeholder="Enter Roll No" name="rollNo" required/>
+  </div>
+
+  <div class="form-outline mb-4">
+    <select class="form-control" name="classNo" id="classNo">
+    <c:forEach items="${classNoList}" var="data">
+    <option value="${data}">${data}</option>
+    </c:forEach>
+    </select>
+  </div>
+ </div>
       <div class="col-sm-12">
         <input type="checkbox" class="form-check d-inline" id="chb" required><label for="chb" class="form-check-label text-primary">&nbsp;I accept all terms and conditions.
         </label>
