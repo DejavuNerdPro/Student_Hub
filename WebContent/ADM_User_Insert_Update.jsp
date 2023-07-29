@@ -343,7 +343,7 @@ $(document).ready(function(){
                         <form class="mx-auto" style="width: 500px;">
                         <center><h2 style="color:gray;">
                         <%
-                        String userId=request.getParameter("userId");
+                        String userId=request.getParameter("id");
                         if(userId==null){
                         %>
                         <label>User Insertion</label>
